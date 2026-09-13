@@ -1,0 +1,417 @@
+/**
+ * Role: Styles the Python block modal code editor.
+ * File Name: block_modal.css
+ * Author: Alexandre EL
+ * Email: alex@hackinvent.com
+ * Created Date: 2026-05-17
+ */
+
+.cw-python-modal {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(1360px, calc(100vw - 32px));
+}
+
+.cw-python-modal .modal-header,
+.cw-python-modal .python-modal-footer {
+  padding-inline: 24px;
+}
+
+.cw-python-modal .python-modal-body {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  min-height: min(82vh, 900px);
+  overflow: hidden;
+  background: #f7f9fd;
+}
+
+.cw-python-modal .python-modal-tablist {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 18px 14px;
+  border-right: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.cw-python-modal .python-modal-tab {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  min-height: 58px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+  color: var(--muted);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.cw-python-modal .python-modal-tab span,
+.cw-python-modal .python-modal-tab small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cw-python-modal .python-modal-tab span {
+  color: var(--ink);
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.cw-python-modal .python-modal-tab small {
+  font-size: 0.76rem;
+}
+
+.cw-python-modal .python-modal-tab[aria-selected="true"] {
+  border-color: rgba(106, 90, 249, 0.5);
+  background: #f5f3ff;
+  color: var(--accent-strong);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.cw-python-modal .python-modal-tab:focus-visible {
+  outline: none;
+  border-color: rgba(106, 90, 249, 0.75);
+  box-shadow: 0 0 0 4px rgba(106, 90, 249, 0.12);
+}
+
+.cw-python-modal .python-modal-panels {
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.cw-python-modal .python-modal-panel {
+  min-width: 0;
+  min-height: 0;
+  height: 100%;
+  overflow: auto;
+  padding: 22px 24px;
+}
+
+.cw-python-modal .python-modal-panel[hidden] {
+  display: none;
+}
+
+.cw-python-modal .python-code-editor-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
+  gap: 18px;
+  min-height: 100%;
+}
+
+.cw-python-modal .python-code-editor-main,
+.cw-python-modal .python-reference-panel,
+.cw-python-modal .python-modal-section {
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.cw-python-modal .python-code-editor-main {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: min(74vh, 820px);
+  padding: 18px;
+}
+
+.cw-python-modal .python-code-editor-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.cw-python-modal .python-code-editor-header h3 {
+  margin: 4px 0 2px;
+  font-size: 1.15rem;
+}
+
+.cw-python-modal .python-code-editor-header p,
+.cw-python-modal .python-code-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.cw-python-modal .python-code-count {
+  white-space: nowrap;
+}
+
+.cw-python-modal .python-code-toolbar {
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
+.cw-python-modal .python-code-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.cw-python-modal .python-code-tool {
+  min-height: 34px;
+  padding: 7px 10px;
+  border-color: rgba(148, 163, 184, 0.28);
+  background: #ffffff;
+  font-size: 0.78rem;
+}
+
+.cw-python-modal .python-code-field {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  min-height: 0;
+  margin-bottom: 0;
+}
+
+.cw-python-modal .python-editor-shell {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: min(66vh, 720px);
+  overflow: hidden;
+  border: 1px solid rgba(30, 41, 59, 0.85);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98)),
+    #0f172a;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.cw-python-modal .python-line-numbers {
+  min-width: 54px;
+  max-height: min(66vh, 720px);
+  margin: 0;
+  padding: 14px 12px;
+  overflow: hidden;
+  border-right: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(2, 6, 23, 0.55);
+  color: #64748b;
+  font: 0.9rem/1.58 var(--mono);
+  text-align: right;
+  user-select: none;
+}
+
+.cw-python-modal .python-code-editor {
+  min-height: min(66vh, 720px);
+  width: 100%;
+  resize: none;
+  overflow: auto;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #dbeafe;
+  caret-color: #93c5fd;
+  font-family: var(--mono);
+  font-size: 0.94rem;
+  line-height: 1.58;
+  outline: none;
+  padding: 14px 16px;
+  tab-size: 4;
+  white-space: pre;
+}
+
+.cw-python-modal .python-code-editor::selection {
+  background: rgba(59, 130, 246, 0.35);
+}
+
+.cw-python-modal .python-code-editor:focus {
+  box-shadow: inset 0 0 0 2px rgba(96, 165, 250, 0.32);
+}
+
+.cw-python-modal .python-editor-feedback {
+  min-height: 40px;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.28);
+  border-radius: 12px;
+  background: #f8fafc;
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.cw-python-modal .python-editor-feedback.is-ok {
+  border-color: rgba(16, 185, 129, 0.35);
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.cw-python-modal .python-editor-feedback.is-warning {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: #fffbeb;
+  color: #92400e;
+}
+
+.cw-python-modal .python-editor-feedback.is-error {
+  border-color: rgba(239, 68, 68, 0.36);
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.cw-python-modal .python-editor-diagnostics {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 16px;
+}
+
+.cw-python-modal .python-reference-panel {
+  align-self: start;
+  position: sticky;
+  top: 0;
+  padding: 16px;
+}
+
+.cw-python-modal .python-reference-panel .field-hint {
+  margin: 6px 0 14px;
+}
+
+.cw-python-modal .python-reference-list {
+  display: grid;
+  gap: 10px;
+}
+
+.cw-python-modal .python-reference-list code {
+  display: block;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid rgba(106, 90, 249, 0.22);
+  border-radius: 12px;
+  background: #f5f3ff;
+  color: var(--accent-strong);
+  font: 700 0.78rem var(--mono);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cw-python-modal .python-attributes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.cw-python-modal .python-modal-section {
+  padding: 16px;
+}
+
+.cw-python-modal .python-modal-config-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.cw-python-modal .python-modal-checkbox {
+  align-items: center;
+  padding: 8px 0;
+}
+
+.cw-python-modal .ports-editor-section {
+  padding: 0;
+  border-bottom: 0;
+}
+
+.cw-python-modal .ports-editor-section + .ports-editor-section {
+  margin-top: 12px;
+}
+
+.cw-python-modal .port-edit-row {
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.cw-python-modal .python-params-json {
+  min-height: 220px;
+  resize: vertical;
+  font-family: var(--mono);
+}
+
+.cw-python-modal .python-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 14px;
+  border-top: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.cw-python-modal .python-modal-footer .modal-actions {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+@media (max-width: 1180px) {
+  .cw-python-modal .python-code-editor-layout,
+  .cw-python-modal .python-attributes-grid,
+  .cw-python-modal .python-modal-config-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cw-python-modal .python-reference-panel {
+    position: static;
+  }
+}
+
+@media (max-width: 860px) {
+  .cw-python-modal {
+    width: min(100%, calc(100vw - 16px));
+  }
+
+  .cw-python-modal .python-modal-body {
+    grid-template-columns: minmax(0, 1fr);
+    overflow: auto;
+  }
+
+  .cw-python-modal .python-modal-tablist {
+    display: flex;
+    overflow-x: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .cw-python-modal .python-modal-tab {
+    min-width: 180px;
+  }
+
+  .cw-python-modal .python-modal-panel {
+    overflow: visible;
+    padding: 16px;
+  }
+
+  .cw-python-modal .python-code-editor-main {
+    min-height: 68vh;
+  }
+
+  .cw-python-modal .python-code-editor-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .cw-python-modal .python-code-toolbar {
+    justify-items: stretch;
+  }
+
+  .cw-python-modal .python-code-actions {
+    justify-content: flex-start;
+  }
+
+  .cw-python-modal .python-modal-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
