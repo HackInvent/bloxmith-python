@@ -1,7 +1,7 @@
 # Python Block
 
 <!-- block-metadata:start -->
-[![Block version: 0.1.0](https://img.shields.io/badge/block-0.1.0-blue)](model.json)
+[![Block version: 0.1.1](https://img.shields.io/badge/block-0.1.1-blue)](model.json)
 [![BloxSmith compatibility: 1.0.9](https://img.shields.io/badge/BloxSmith-1.0.9-brightgreen)](compatibility.json)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue)](LICENSE)
 
@@ -54,6 +54,23 @@ Topology edits still require stopping the active run first.
 
 ## UI Behavior
 
+### Release UI contract (0.1.1)
+
+Install or link this package as `python@0.1.1`. `model.json.ui_assets` declares
+the modal's CSS and ES-module entrypoint; Python hooks no longer list assets.
+The module exports `mount` and never registers an unversioned browser global.
+Styles are scoped to this exact release so another Python version cannot replace
+its layout. Closing or replacing the modal detaches its editor listeners.
+
+The code counter initializes from the actual saved script. Tabs support arrow
+keys, Home and End with associated panels; the editor has an accessible label.
+Small screens use compact tabs and actions with an internally scrolling editor.
+Syntax diagnostics and Close/Apply remain reachable.
+
+Existing `0.1.0` tags and blueprint references are not rewritten. Upgrade a
+blueprint's explicit block version after installing/reloading this release;
+unversioned bundled UI loading is not a fallback for these ES modules.
+
 The inspector shows a read-only script preview, timeout/interpreter config,
 params, and dynamic-code settings. Script editing is intentionally handled only
 by the block modal. Editable inspector fields use the generic block UI
@@ -82,10 +99,17 @@ The canvas card is rendered by this block through `node_card.html`. It exposes s
 
 ## Maintenance Notes
 
+`F8.19_python_release_ui.py` installs the current package and links a synthetic
+second version through the real framework. Chromium verifies tabs, counters,
+validation/formatting, saved drafts, repeated opening, release isolation and
+desktop/mobile layouts. The same managed and linked code is executed in
+`centralized` and `zeromq_active`. The synthetic version is only an isolation
+fixture, not a published release or an additional compatibility claim.
+
 Preserve validation around dynamic code. Do not bypass `python_validation.py` or move Python-block-specific execution rules into the orchestrator. The isolated runner loads user scripts under the internal module name `bloxsmith_user_python_block` so tracebacks and module identity follow the BloxSmith package name.
 
 ## Compatibility policy
 
-[compatibility.json](compatibility.json) records HackInvent's verified BloxSmith versions and test evidence. Only the versions listed above have been verified, using the block-owned suites in a **bundled-block test installation**. This is not a certification of managed-package installation, every browser/OS, or live provider availability. Other framework versions are unverified, not necessarily incompatible.
+[compatibility.json](compatibility.json) records HackInvent's verified BloxSmith versions and test evidence. The outer harness is a **bundled-block test installation**; the release-specific suites described above additionally install and link this package through the real framework. Evidence covers those explicit cases, not every distribution format, browser/OS or live provider. Other framework versions are unverified, not necessarily incompatible.
 
 The block-version badge follows `model.json`, not a published Git tag. `unversioned` means that no block release version is declared; no number is inferred from the framework version. The framework still uses `model.json` for its runtime/install contract; the tester-owned JSON does not replace it. Official integration tests run in the private `bloxmith-blocs` workspace. Test helpers and the proprietary framework are not bundled in this public block repository.

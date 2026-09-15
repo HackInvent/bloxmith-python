@@ -55,7 +55,7 @@ def test_python_modal_code_first_layout() -> None:
 
     rendered = render_block_modal("python", {"node": python_node(), "runtime": {}})
     html = rendered.get("html") or ""
-    assets = rendered.get("assets") or []
+    assets = PythonBlock().model["ui_assets"]["modal"]
     css = (ROOT / "blocs/python/assets/css/block_modal.css").read_text(encoding="utf-8")
     js = (ROOT / "blocs/python/assets/js/block_modal.js").read_text(encoding="utf-8")
 

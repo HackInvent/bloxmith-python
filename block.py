@@ -52,15 +52,6 @@ class PythonBlock(BlockDefinition):
     """Autonomous block implementation for `PythonBlock`."""
     kind = "python"
 
-    def ui_assets(self, surface: str = "modal") -> list[dict[str, str]]:
-        """Return Python-owned modal assets for tabbed code editing."""
-
-        if surface == "modal":
-            return [
-                {"kind": "css", "path": "assets/css/block_modal.css"},
-                {"kind": "js", "path": "assets/js/block_modal.js"},
-            ]
-        return []
 
     def render_modal(self, *, node: dict[str, Any], payload: dict[str, Any] | None = None) -> dict[str, Any]:
         """Render the Python block modal with a dedicated code editor tab."""

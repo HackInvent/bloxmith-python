@@ -1,9 +1,21 @@
 {
   "kind": "python",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "bloxsmith_compatibility": ["1.0.9"],
   "tested_with_bloxsmith": "1.0.9",
   "title": "Python",
+  "ui_assets": {
+    "modal": [
+      {
+        "kind": "css",
+        "path": "assets/css/block_modal.css"
+      },
+      {
+        "kind": "js",
+        "path": "assets/js/block_modal.js"
+      }
+    ]
+  },
   "ports": {
     "inputs": [
       {
