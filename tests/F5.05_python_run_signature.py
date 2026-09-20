@@ -7,10 +7,10 @@
 # Created Date: 2024-07-28
 # -----------------------------------------------------------------------------
 
-"""F5.05 - Bloc Python avec signature def run(inputs, outputs).
+"""F5.05 - Python block with the def run(inputs, outputs) signature.
 
-Le test vérifie qu'un bloc Python simple peut lire son input par nom de port,
-écrire dans outputs, puis propager la valeur vers un display.
+The test checks that a simple Python block can read its input by port name,
+write into outputs, then propagate the value to a display.
 """
 
 # Test cases:
@@ -102,10 +102,10 @@ def _verify_dynamic_code_override() -> None:
             )
         )
     values = {output.port_id: output.value for output in result.outputs}
-    expect(result.status == "success", "Python dynamique doit réussir.")
-    expect(values.get(1) == "override script", "Le code dynamique doit remplacer le script configuré.")
-    expect(values.get(2) == override_script, "Le port code output doit publier le code effectif.")
-    expect(result.metadata.get("python_code_override_used") is True, "La metadata doit signaler l'override dynamique.")
+    expect(result.status == "success", "Dynamic Python must succeed.")
+    expect(values.get(1) == "override script", "The dynamic code must replace the configured script.")
+    expect(values.get(2) == override_script, "The code output port must publish the effective code.")
+    expect(result.metadata.get("python_code_override_used") is True, "The metadata must report the dynamic override.")
 
 
 def main() -> None:
@@ -114,9 +114,9 @@ def main() -> None:
         document = graph_payload(
             "F5 Python",
             [
-                text_node("text-1", "Texte Python", "hello python", 80, 120),
+                text_node("text-1", "Python text", "hello python", 80, 120),
                 python_node(),
-                display_node("display-1", "Affichage", 680, 120),
+                display_node("display-1", "Display", 680, 120),
             ],
             [
                 data_edge("edge-text-python", "text-1", 1, "python-1", 1),
@@ -125,11 +125,11 @@ def main() -> None:
         )
         created = create_run_api(server, document)
         run = wait_for_run_terminal(server, str(created.get("run_id") or ""), timeout_sec=20)
-        expect(run.get("status") == "success", "Le run Python doit réussir.")
+        expect(run.get("status") == "success", "The Python run must succeed.")
         python_node_id = runtime_node_id_for_kind(run, "python")
         display_node_id = runtime_node_id_for_kind(run, "display")
-        expect(run.get("output_values", {}).get(f"{python_node_id}:1", {}).get("value") == "HELLO PYTHON", "La sortie Python est incorrecte.")
-        expect("HELLO PYTHON" in str(run.get("worker_rows", {}).get(display_node_id, {}).get("received") or ""), "Display ne reçoit pas la sortie Python.")
+        expect(run.get("output_values", {}).get(f"{python_node_id}:1", {}).get("value") == "HELLO PYTHON", "The Python output is wrong.")
+        expect("HELLO PYTHON" in str(run.get("worker_rows", {}).get(display_node_id, {}).get("received") or ""), "Display does not receive the Python output.")
     print("[ok] F5.05_python_run_signature")
 
 

@@ -33,7 +33,7 @@ def test_release_ui(page, server, model):
         page.locator(f'.canvas-node[data-node-id="python-{index}"] h3').dblclick()
         modal = page.locator(".cw-python-modal")
         count = modal.locator("[data-python-code-count]")
-        expect(count).to_have_text(re.compile(r"[1-9]\d* lignes? · [1-9]\d* caractères?"))
+        expect(count).to_have_text(re.compile(r"[1-9]\d* lines? · [1-9]\d* characters?"))
         expect(modal.locator('[data-python-modal-panel][data-python-tab-id="attributes"]')).not_to_be_visible()
         tabs = modal.locator("[data-python-modal-tab]")
         tabs.nth(1).click()
@@ -45,7 +45,7 @@ def test_release_ui(page, server, model):
         expect(editor).to_be_visible()
         script = 'def run(inputs, outputs, params):\n    outputs["out"] = "saved"\n'
         editor.fill(script)
-        expect(count).to_have_text(f"3 lignes · {len(script)} caractères")
+        expect(count).to_have_text(f"3 lines · {len(script)} characters")
         modal.locator('[data-python-editor-action="check-syntax"]').click()
         expect(modal.locator("[data-python-editor-feedback]")).to_have_class(re.compile(r"is-ok"))
         editor.fill("def broken(")

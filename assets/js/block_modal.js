@@ -41,7 +41,7 @@ function updateCodeCount(textarea, count) {
   }
   const value = String(textarea.value || "");
   const lineCount = value ? value.replace(/\r\n?/g, "\n").split("\n").length : 1;
-  count.textContent = `${lineCount} ligne${lineCount > 1 ? "s" : ""} · ${value.length} caractère${value.length > 1 ? "s" : ""}`;
+  count.textContent = `${lineCount} line${lineCount > 1 ? "s" : ""} · ${value.length} character${value.length > 1 ? "s" : ""}`;
 }
 
 /**
@@ -89,7 +89,7 @@ function diagnosticsFromResult(result) {
  * @param {object} result - UI action result with diagnostics.
  * @param {object} options - Rendering options.
  */
-function renderDiagnostics(root, result, { fallback = "Syntaxe vérifiée." } = {}) {
+function renderDiagnostics(root, result, { fallback = "Syntax checked." } = {}) {
   const feedback = root.querySelector("[data-python-editor-feedback]");
   if (!feedback) {
     return;
@@ -259,7 +259,7 @@ export function mount(root, api = {}) {
     actionButton.disabled = true;
     try {
       if (action === "check-syntax") {
-        setFeedbackPending(root, "Vérification de la syntaxe Python...");
+        setFeedbackPending(root, "Checking the Python syntax...");
         const result = await api.applyAction?.("python_check_syntax", { script: textarea.value });
         if (controller.signal.aborted) return;
         renderDiagnostics(root, result, { fallback: "Syntaxe Python valide." });

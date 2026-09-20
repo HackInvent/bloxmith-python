@@ -1,27 +1,27 @@
 <div class="modal-panel cw-python-modal" role="dialog" aria-modal="true" aria-labelledby="{{ node_id }}BlockModalTitle" data-generic-block-modal-root data-block-runtime-refresh="autonomous" data-python-modal-root data-node-id="{{ node_id }}" data-node-kind="{{ node_kind }}">
   <div class="modal-header">
     <div>
-      <span class="panel-kicker">Bloc {{ node_kind_title }}</span>
+      <span class="panel-kicker">{{ node_kind_title }} block</span>
       <h2 id="{{ node_id }}BlockModalTitle">{{ node_title }}</h2>
     </div>
     <div class="modal-actions">
-      <button class="ghost-btn" data-close-block-modal type="button">Fermer</button>
+      <button class="ghost-btn" data-close-block-modal type="button">Close</button>
     </div>
   </div>
 
   <div class="python-modal-body">
-    <div class="python-modal-tablist" role="tablist" aria-label="Sections du bloc Python">
+    <div class="python-modal-tablist" role="tablist" aria-label="Python block sections">
       <button class="python-modal-tab" data-python-modal-tab data-python-tab-id="code" type="button" role="tab" aria-selected="true" tabindex="0">
         <span>Code</span>
-        <small>Script exécuté</small>
+        <small>Executed script</small>
       </button>
       <button class="python-modal-tab" data-python-modal-tab data-python-tab-id="attributes" type="button" role="tab" aria-selected="false" tabindex="-1">
-        <span>Attributs</span>
-        <small>Timeout, params, dynamique</small>
+        <span>Attributes</span>
+        <small>Timeout, params, dynamic code</small>
       </button>
       <button class="python-modal-tab" data-python-modal-tab data-python-tab-id="runtime" type="button" role="tab" aria-selected="false" tabindex="-1">
-        <span>Ports & état</span>
-        <small>Connexions et dernier run</small>
+        <span>Ports and state</span>
+        <small>Connections and last run</small>
       </button>
     </div>
 
@@ -31,15 +31,15 @@
           <div class="python-code-editor-main">
             <div class="python-code-editor-header">
               <div>
-                <span class="group-label">Script Python</span>
-                <h3>Code exécuté par le bloc</h3>
-                <p>API : <code>def run(inputs, outputs, params):</code>. Ctrl+Enter applique les changements.</p>
+                <span class="group-label">Python script</span>
+                <h3>Code executed by the block</h3>
+                <p>API: <code>def run(inputs, outputs, params):</code>. Ctrl+Enter applies the changes.</p>
               </div>
               <div class="python-code-toolbar">
-                <span class="python-code-count" data-python-code-count>0 lignes · 0 caractères</span>
-                <div class="python-code-actions" aria-label="Actions éditeur Python">
+                <span class="python-code-count" data-python-code-count>0 lines · 0 characters</span>
+                <div class="python-code-actions" aria-label="Python editor actions">
                   <button class="ghost-btn python-code-tool" data-python-editor-action="beautify" type="button">Beautiful Python</button>
-                  <button class="ghost-btn python-code-tool" data-python-editor-action="check-syntax" type="button">Vérifier syntaxe</button>
+                  <button class="ghost-btn python-code-tool" data-python-editor-action="check-syntax" type="button">Check syntax</button>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@
                 <pre class="python-line-numbers" data-python-line-numbers aria-hidden="true">1</pre>
                 <textarea
                   class="python-code-editor"
-                  aria-label="Script Python"
+                  aria-label="Python script"
                   data-python-code-editor
                   data-block-config-field="script"
                   spellcheck="false"
@@ -57,15 +57,15 @@
                 >{{ script }}</textarea>
               </div>
             </label>
-            <div class="python-editor-feedback" data-python-editor-feedback aria-live="polite">Syntaxe non vérifiée.</div>
+            <div class="python-editor-feedback" data-python-editor-feedback aria-live="polite">Syntax not checked.</div>
           </div>
           <aside class="python-reference-panel">
-            <span class="group-label">Repères</span>
-            <p class="field-hint">Le script doit remplir <code>outputs</code> avec les noms des ports de sortie.</p>
+            <span class="group-label">Reference</span>
+            <p class="field-hint">The script must fill <code>outputs</code> with the names of the output ports.</p>
             <div class="python-reference-list">
               <code>inputs["in"]</code>
-              <code>outputs["out"] = valeur</code>
-              <code>params["nom"]</code>
+              <code>outputs["out"] = value</code>
+              <code>params["name"]</code>
             </div>
           </aside>
         </div>
@@ -74,7 +74,7 @@
       <section class="python-modal-panel" data-python-modal-panel data-python-tab-id="attributes" role="tabpanel" hidden>
         <div class="python-attributes-grid">
           <section class="python-modal-section">
-            <div class="ports-editor-header"><span class="group-label">Identité</span></div>
+            <div class="ports-editor-header"><span class="group-label">Identity</span></div>
             {{ title_field_html }}
           </section>
           <section class="python-modal-section">
@@ -91,7 +91,7 @@
             {{ ports_html }}
           </section>
           <section class="python-modal-section">
-            <div class="ports-editor-header"><span class="group-label">Dernier état</span></div>
+            <div class="ports-editor-header"><span class="group-label">Last state</span></div>
             {{ runtime_html }}
           </section>
         </div>
@@ -100,10 +100,10 @@
   </div>
 
   <div class="python-modal-footer">
-    <span class="field-hint">Les modifications restent locales jusqu'à validation.</span>
+    <span class="field-hint">Changes stay local until you apply them.</span>
     <div class="modal-actions">
-      <button class="ghost-btn" data-close-block-modal type="button">Annuler</button>
-      <button class="solid-btn" data-block-apply type="button" disabled>Appliquer</button>
+      <button class="ghost-btn" data-close-block-modal type="button">Cancel</button>
+      <button class="solid-btn" data-block-apply type="button" disabled>Apply</button>
     </div>
   </div>
 </div>

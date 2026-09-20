@@ -7,11 +7,11 @@
 # Created Date: 2024-06-21
 # -----------------------------------------------------------------------------
 
-"""F11.07 - Feedback transport sur workers Python actifs.
+"""F11.07 - Feedback transport on active Python workers.
 
-Le test lance un graphe ZeroMQ actif avec une arête feedback vers Python. Cette
-arête garde son rendu visuel, mais elle est compilée en subscription et met à
-jour l'attribut d'input cible comme une route runtime.
+The test runs an active ZeroMQ graph with a feedback edge into Python. That edge
+keeps its visual rendering, but it is compiled into a subscription and updates
+the target input attribute like any runtime route.
 """
 
 import time
@@ -126,12 +126,12 @@ def verify_feedback_transport_to_python(server) -> None:
             server,
             run_id,
             lambda item: item.get("output_values", {}).get("python-b:1", {}).get("value") == "B:A:seed",
-            "Le feedback doit transporter A:seed jusqu'au bloc python-b.",
+            "The feedback must carry A:seed to the python-b block.",
             timeout_sec=15,
         )
         logs = "\n".join(state.get("logs", []))
-        expect(state.get("output_values", {}).get("python-a:1", {}).get("value") == "A:seed", "python-a doit consommer le flux data.")
-        expect("fallback centralized" not in logs, "Le run ne doit pas fallback centralisé.")
+        expect(state.get("output_values", {}).get("python-a:1", {}).get("value") == "A:seed", "python-a must consume the data stream.")
+        expect("fallback centralized" not in logs, "The run must not fall back to centralized.")
     finally:
         stop_run_api(server, run_id)
 
@@ -162,7 +162,7 @@ def verify_required_many_input_waits_for_all_data_messages(server) -> None:
         partial_state = get_run_api(server, run_id)
         expect(
             "python-a:1" not in (partial_state.get("output_values") or {}),
-            "Le bloc Python ne doit pas s'executer avant que toutes les routes required/many aient livre.",
+            "The Python block must not run before every required/many route has delivered.",
         )
 
         active_control(server, run_id, "publish_seed", "text-b")
@@ -170,12 +170,12 @@ def verify_required_many_input_waits_for_all_data_messages(server) -> None:
             server,
             run_id,
             lambda item: "python-a:1" in (item.get("output_values") or {}),
-            "Toutes les routes data d'un port required/many doivent declencher le bloc Python.",
+            "Every data route of a required/many port must trigger the Python block.",
             timeout_sec=10,
         )
         expect(
             state.get("output_values", {}).get("python-a:1", {}).get("value") == "alpha\n\nbravo",
-            "Le bloc Python doit joindre les valeurs de toutes les routes du port required/many.",
+            "The Python block must join the values of every route of the required/many port.",
         )
     finally:
         stop_run_api(server, run_id)

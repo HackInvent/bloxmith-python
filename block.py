@@ -238,7 +238,7 @@ class PythonBlock(BlockDefinition):
             params: Additional action or runtime parameters.
         """
         if not params:
-            return '<div class="python-params-empty">Aucun paramètre. Ajoute un paramètre pour l’utiliser avec params["nom"].</div>'
+            return '<div class="python-params-empty">No parameter yet. Add one to use it through params["name"].</div>'
         rows: list[str] = []
         for index, param in enumerate(params):
             rows.append(
@@ -246,18 +246,18 @@ class PythonBlock(BlockDefinition):
                     [
                         f'<div class="python-param-row" data-index="{index}">',
                         (
-                            f'  <input type="text" value="{escape(param["name"])}" placeholder="mon_param_1" '
+                            f'  <input type="text" value="{escape(param["name"])}" placeholder="my_param_1" '
                             f'data-python-param-field="name" data-block-config-list="params" '
                             f'data-block-config-list-field="name" data-index="{index}" autocomplete="off" />'
                         ),
                         (
-                            f'  <input type="text" value="{escape(param["value"])}" placeholder="Valeur" '
+                            f'  <input type="text" value="{escape(param["value"])}" placeholder="Value" '
                             f'data-python-param-field="value" data-block-config-list="params" '
                             f'data-block-config-list-field="value" data-index="{index}" autocomplete="off" />'
                         ),
                         (
                             f'  <button type="button" class="ghost-btn python-param-remove" '
-                            f'data-python-param-action="delete" data-index="{index}" title="Supprimer le paramètre">×</button>'
+                            f'data-python-param-action="delete" data-index="{index}" title="Delete the parameter">×</button>'
                         ),
                         "</div>",
                     ]
@@ -270,7 +270,7 @@ class PythonBlock(BlockDefinition):
 
         return (
             '<div class="field-group">'
-            "<label>Nom du bloc</label>"
+            "<label>Block name</label>"
             f'<input data-block-title-field type="text" autocomplete="off" value="{escape(title, quote=True)}" />'
             "</div>"
         )
@@ -284,7 +284,7 @@ class PythonBlock(BlockDefinition):
             f"<label>{escape(label)}</label>"
             f'<input data-block-config-field="{escape(field, quote=True)}" data-block-value-type="integer" '
             f'type="number" min="1" step="1" value="{escape(rendered_value, quote=True)}" '
-            'placeholder="Aucun port dédié" />'
+            'placeholder="No dedicated port" />'
             "</div>"
         )
 
@@ -296,14 +296,14 @@ class PythonBlock(BlockDefinition):
             [
                 '<div class="python-modal-config-grid">',
                 '  <div class="field-group">',
-                "    <label>Timeout secondes</label>",
+                "    <label>Timeout seconds</label>",
                 (
                     f'    <input data-block-config-field="timeout_sec" data-block-value-type="integer" '
                     f'type="number" min="1" max="3600" step="1" value="{config["timeout_sec"]}" />'
                 ),
                 "  </div>",
                 '  <div class="field-group">',
-                "    <label>Exécutable Python</label>",
+                "    <label>Python executable</label>",
                 (
                     f'    <input data-block-config-field="python_executable" type="text" '
                     f'value="{escape(config["python_executable"], quote=True)}" autocomplete="off" spellcheck="false" />'
@@ -315,29 +315,29 @@ class PythonBlock(BlockDefinition):
                     f'  <input data-block-config-field="dynamic_code_enabled" data-block-value-type="boolean" '
                     f'type="checkbox" {"checked" if config["dynamic_code_enabled"] else ""} />'
                 ),
-                "  <span>Modification dynamique : autoriser un input à remplacer le code effectif.</span>",
+                "  <span>Dynamic override: let an input replace the effective code.</span>",
                 "</label>",
                 '<div class="python-modal-config-grid">',
                 self._render_modal_optional_port_id(
-                    label="Port d'entrée code",
+                    label="Code input port",
                     field="code_input_port_id",
                     value=config.get("code_input_port_id"),
                 ),
                 self._render_modal_optional_port_id(
-                    label="Port de sortie code",
+                    label="Code output port",
                     field="code_output_port_id",
                     value=config.get("code_output_port_id"),
                 ),
                 "</div>",
                 '<div class="field-group">',
-                "  <label>Paramètres JSON</label>",
+                "  <label>JSON parameters</label>",
                 (
                     '  <textarea class="python-params-json" data-block-config-field="params" '
                     'data-block-value-type="json" rows="8" spellcheck="false">'
                     f"{escape(params_json)}"
                     "</textarea>"
                 ),
-                '  <p class="field-hint">Format attendu : [{"name": "mon_param", "value": "ma valeur"}].</p>',
+                '  <p class="field-hint">Expected format: [{"name": "my_param", "value": "my value"}].</p>',
                 "</div>",
             ]
         )
@@ -770,7 +770,7 @@ def main() -> int:
 
     spec = importlib.util.spec_from_file_location("bloxsmith_user_python_block", script_path)
     if spec is None or spec.loader is None:
-        print("Impossible de charger le script Python du bloc.", file=sys.stderr)
+        print("Unable to load the Python script of the block.", file=sys.stderr)
         return 2
     module = importlib.util.module_from_spec(spec)
     try:
@@ -782,8 +782,8 @@ def main() -> int:
     run = getattr(module, "run", None)
     if not callable(run):
         print(
-            "Le script Python doit definir une fonction callable: def run(inputs, outputs) "
-            "ou def run(inputs, outputs, params).",
+            "The Python script must define a callable function: def run(inputs, outputs) "
+            "or def run(inputs, outputs, params).",
             file=sys.stderr,
         )
         return 2
@@ -807,7 +807,7 @@ def main() -> int:
         return 1
 
     if not isinstance(outputs, dict):
-        print("Le parametre outputs doit rester un dictionnaire.", file=sys.stderr)
+        print("The outputs parameter must stay a dictionary.", file=sys.stderr)
         return 2
 
     with open(outputs_path, "w", encoding="utf-8") as file:
