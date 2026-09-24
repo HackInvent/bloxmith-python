@@ -1,3 +1,5 @@
+import { withProperties } from "./properties.js";
+
 /**
  * Role: Mounts the Python block modal frontend asset.
  * File Name: block_modal.js
@@ -205,7 +207,7 @@ function moveTab(root, current, direction) {
  * @param {HTMLElement} root - Mounted Python modal root.
  * @param {object} api - Generic block UI API provided by the modal host.
  */
-export function mount(root, api = {}) {
+function mountOwned(root, api = {}) {
   mounts.get(root)?.();
   const controller = new AbortController();
   const listen = (element, type, handler) => element?.addEventListener(type, handler, { signal: controller.signal });
@@ -328,4 +330,9 @@ export function mount(root, api = {}) {
   syncGutterScroll(textarea, gutter);
   focusTimer = window.setTimeout(() => textarea?.focus(), 0);
   return cleanup;
+}
+
+/** Keep the block behavior and add properties-only accessibility. */
+export function mount(root, ...args) {
+  return withProperties(mountOwned).call(this, root, ...args);
 }
