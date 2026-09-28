@@ -10,9 +10,6 @@ Verified BloxSmith versions: **1.0.9** (bundled-block tests; see [test evidence]
 
 [![PYTHON — Executes user-provided Python code and emits values assigned to outputs.](media/thumbnail.webp)](media/cover.png)
 
-*Concept illustration. [Artwork and generation prompt](media/README.md).*
-
-
 ## Role
 
 `python` executes a user-provided Python `run(inputs, outputs, params)` function and emits values assigned to output names.
